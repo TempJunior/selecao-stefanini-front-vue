@@ -48,12 +48,20 @@
           <img class="w-[600px] h-auto lg:max-w-3xl" src="/premium.png" alt="Catalogue-pana.svg" />
         </div>
       </div>
+      <div class="mt-44 flex justify-between w-40">
+        <GitHubButtonComponent/>
+        <LinkedinButtonComponent/>
+      </div>
+
     </div>
   </header>
+
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import GitHubButtonComponent from '@/components/buttons/GitHubButtonComponent.vue'
+import LinkedinButtonComponent from '@/components/buttons/LinkedinButtonComponent.vue'
 
 const isOpen = ref(false)
 </script>
