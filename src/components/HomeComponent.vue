@@ -16,7 +16,7 @@
               um aspirante a desenvolvedor Full-Stack
             </h4>
             <p class="mt-3 text-gray-600 dark:text-gray-400">
-              Conforme sigo meus estudos em Java e VueJS, encontrei esse desafio proposto pela
+              Conforme avanço em meus estudos de Java e VueJS, encontrei esse desafio proposto pela
               Stefanini que consiste em uma ApiREST feita em Java e Spring contendo alguns endPoints
               de acesso de cadastro e buscas com filtros.
             </p>
@@ -39,7 +39,7 @@
             <button
               class="w-full px-5 py-2 mt-6 text-sm tracking-wider text-white uppercase transition-colors duration-300 transform bg-blue-600 rounded-lg lg:w-auto hover:bg-blue-500 focus:outline-none focus:bg-blue-500"
             >
-              Shop Now
+              Seguir para desafio
             </button>
           </div>
         </div>
@@ -59,9 +59,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
 import GitHubButtonComponent from '@/components/buttons/GitHubButtonComponent.vue'
 import LinkedinButtonComponent from '@/components/buttons/LinkedinButtonComponent.vue'
-
-const isOpen = ref(false)
 </script>
