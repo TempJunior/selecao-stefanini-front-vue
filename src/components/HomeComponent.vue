@@ -37,6 +37,7 @@
             </p>
 
             <button
+              @click="router.push({name: 'autor'})"
               class="w-full px-5 py-2 mt-6 text-sm tracking-wider text-white uppercase transition-colors duration-300 transform bg-blue-600 rounded-lg lg:w-auto hover:bg-blue-500 focus:outline-none focus:bg-blue-500"
             >
               Seguir para desafio
@@ -61,4 +62,5 @@
 <script setup lang="ts">
 import GitHubButtonComponent from '@/components/buttons/GitHubButtonComponent.vue'
 import LinkedinButtonComponent from '@/components/buttons/LinkedinButtonComponent.vue'
+import router from '@/router'
 </script>
