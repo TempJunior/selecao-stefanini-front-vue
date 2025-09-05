@@ -1,5 +1,6 @@
 <script setup lang="ts">
 
+import router from '@/router'
 </script>
 
 <template>
@@ -9,7 +10,9 @@
     data-twe-navbar-ref>
     <div class="flex w-full flex-wrap items-center justify-between px-3">
       <div class="ms-2">
-        <a class="text-xl text-black dark:text-white" href="#">Navbar</a>
+        <a class="text-xl text-black dark:text-white" href="#">
+          <img class="w-[50px] h-auto lg:max-w-3xl" src="/house.png" alt="Catalogue-pana.svg" />
+        </a>
       </div>
       <!-- Hamburger button for mobile view -->
       <button
@@ -46,47 +49,17 @@
           data-twe-navbar-nav-ref>
           <!-- Home link -->
           <li
-            class="my-4 ps-2 lg:my-0 lg:pe-1 lg:ps-2"
+            class="my-4 ps-2 lg:my-0 lg:pe-1 lg:ps-2 text-2xl"
             data-twe-nav-item-ref>
             <a
+              @click="router.push({name: 'home'})"
               class="text-black dark:text-white lg:px-2"
               aria-current="page"
               href="#"
               data-twe-nav-link-ref
-            >Home</a
-            >
+            >Home</a>
           </li>
-          <!-- Features link -->
-          <li
-            class="mb-4 ps-2 lg:mb-0 lg:pe-1 lg:ps-0"
-            data-twe-nav-item-ref>
-            <a
-              class="p-0 text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none dark:text-white/60 dark:hover:text-white/80 dark:focus:text-white/80 dark:active:text-white/80 lg:px-2"
-              href="#"
-              data-twe-nav-link-ref
-            >Features</a
-            >
-          </li>
-          <!-- Pricing link -->
-          <li
-            class="mb-4 ps-2 lg:mb-0 lg:pe-1 lg:ps-0"
-            data-twe-nav-item-ref>
-            <a
-              class="p-0 text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none dark:text-white/60 dark:hover:text-white/80 dark:focus:text-white/80 dark:active:text-white/80 lg:px-2"
-              href="#"
-              data-twe-nav-link-ref
-            >Pricing</a
-            >
-          </li>
-          <!-- Disabled link -->
-          <li
-            class="mb-4 ps-2 lg:mb-0 lg:pe-1 lg:ps-0"
-            data-twe-nav-link-ref>
-            <a
-              class="pointer-events-none text-black/30 dark:text-white/30 lg:px-2"
-            >Disabled</a
-            >
-          </li>
+
         </ul>
       </div>
     </div>
