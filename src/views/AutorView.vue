@@ -6,11 +6,22 @@ import TableListComponent from '@/components/TableListComponent.vue'
 
 <template>
   <main class="h-screen bg-gray-900 absolute w-full">
-    <NavbarComponent />
-    <div class="flex justify-between p-26">
-      <FormsComponent />
-      <TableListComponent />
+    <div>
+      <NavbarComponent />
     </div>
+
+    <section class="flex p-8">
+
+      <div class="container p-4">
+        <FormsComponent />
+      </div>
+
+      <div class="container p-4">
+        <TableListComponent />
+      </div>
+
+    </section>
+
   </main>
 </template>
 

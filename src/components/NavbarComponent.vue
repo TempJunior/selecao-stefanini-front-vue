@@ -4,7 +4,6 @@ import router from '@/router'
 </script>
 
 <template>
-  <!-- Main navigation container -->
   <nav
     class="mt-0 relative flex w-full flex-nowrap items-center justify-between bg-zinc-50 py-2 text-neutral-500 shadow-dark-mild hover:text-neutral-700 focus:text-neutral-700 dark:bg-neutral-700 lg:flex-wrap lg:justify-start lg:py-4"
     data-twe-navbar-ref>

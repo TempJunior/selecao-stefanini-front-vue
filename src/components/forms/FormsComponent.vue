@@ -16,7 +16,7 @@ onMounted(() => {
     new Datepicker(datepicker.value, {
       language: 'pt-BR', // Configura o idioma para português
       autoHide: true, // O calendário desaparece após a seleção
-      minDate: new Date(2023, 0, 1), // Data mínima
+      minDate: new Date(1400, 0, 1), // Data mínima
       maxDate: new Date(2023, 11, 31), // Data máxima
     })
   }
