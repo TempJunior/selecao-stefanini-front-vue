@@ -8,6 +8,11 @@ import TableListComponent from '@/components/TableListComponent.vue'
   <main class="h-screen bg-gray-900 absolute w-full">
     <div>
       <NavbarComponent />
+      <div class="flex justify-center mt-4">
+        <h1 class="text-white text-4xl">
+          Cadastro e listagem de Autores
+        </h1>
+      </div>
     </div>
 
     <section class="flex p-8">
