@@ -1,85 +1,28 @@
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount } from 'vue'
-import Datepicker from 'flowbite-datepicker'
-import { initFlowbite } from 'flowbite'
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAxiosStore } from '@/stores/axiosStore.ts'
+import type { IArtworkInterface } from '@/interfaces/artworkInterface/IArtworkInterface.ts'
+import CountrysComponent from '@/components/CountrysComponent.vue'
 
-// ---- estado do formulário
 const name = ref<string>('')
 const gender = ref<string>('')
 const email = ref<string>('')
-const dateOfBirth = ref<string>('') // exibido no input em dd/MM/yyyy
+const dateOfBirth = ref<string>('')
 const country = ref<string>('')
 const cpf = ref<string>('')
-interface IArtworkInterface { id: number; title: string; /* ... */ }
 const artwork = ref<IArtworkInterface[]>([])
 
 const store = useAxiosStore()
 const router = useRouter()
 
-// ---- input do datepicker
-const datepicker = ref<HTMLInputElement | null>(null)
-
-let dp: InstanceType<typeof Datepicker> | null = null
-let onChangeDate: ((e: Event) => void) | null = null
-
-// helper: dd/MM/yyyy -> yyyy-MM-dd
-function toISO(dateBr: string): string {
-  if (!dateBr) return ''
-  const [d, m, y] = dateBr.split('/')
-  if (!d || !m || !y) return '' // defensivo
-  return `${y}-${m.padStart(2, '0')}-${d.padStart(2, '0')}`
-}
-
-onMounted(() => {
-  // Inicializa os componentes do Flowbite (se usar outros)
-  initFlowbite()
-
-  if (datepicker.value) {
-    dp = new Datepicker(datepicker.value, {
-      language: 'pt-BR',
-      autohide: true,
-      format: 'dd/mm/yyyy', // garante formato brasileiro no input
-      minDate: new Date('1400-01-01'),
-      maxDate: new Date('2023-12-31'),
-    })
-
-    // quando o usuário escolher a data no calendário,
-    // copiamos o valor do input para o v-model
-    onChangeDate = () => {
-      dateOfBirth.value = datepicker.value?.value ?? ''
-    }
-    datepicker.value.addEventListener('changeDate', onChangeDate)
-
-    // se já houver valor no modelo (ex.: edição), reflita no input
-    if (dateOfBirth.value) {
-      datepicker.value.value = dateOfBirth.value
-    }
-  }
-})
-
-onBeforeUnmount(() => {
-  if (datepicker.value && onChangeDate) {
-    datepicker.value.removeEventListener('changeDate', onChangeDate)
-  }
-  dp?.destroy?.()
-})
-
 const handlerCreateAutor = async () => {
   try {
-    // pega o que está no input (caso o usuário tenha digitado direto)
-    if (!dateOfBirth.value && datepicker.value?.value) {
-      dateOfBirth.value = datepicker.value.value
-    }
-
-    const formattedDate = toISO(dateOfBirth.value) // yyyy-MM-dd
-
     const res = await store.http.post('/autor', {
       name: name.value,
       gender: gender.value,
       email: email.value,
-      dateOfBirth: formattedDate, // enviado em ISO
+      dateOfBirth: dateOfBirth.value,
       country: country.value,
       cpf: cpf.value,
       artwork: artwork.value,
@@ -94,8 +37,7 @@ const handlerCreateAutor = async () => {
 </script>
 
 <template>
-  <form
-  @submit.prevent="handlerCreateAutor">
+  <form @submit.prevent="handlerCreateAutor">
     <div class="grid gap-6 mb-6 md:grid-cols-2">
       <div>
         <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -128,7 +70,7 @@ const handlerCreateAutor = async () => {
 
       <div>
         <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-        >Date of Birth</label
+          >Date of Birth</label
         >
         <div class="relative max-w-sm">
           <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
@@ -155,10 +97,7 @@ const handlerCreateAutor = async () => {
         </div>
       </div>
 
-    <CountrysComponent
-    v-model="country"
-    />
-
+      <CountrysComponent v-model="country" />
     </div>
 
     <div class="mb-6">
@@ -175,9 +114,7 @@ const handlerCreateAutor = async () => {
       />
     </div>
     <div class="mb-6">
-      <label
-        for="cpf"
-        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+      <label for="cpf" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
         >CPF</label
       >
       <input
