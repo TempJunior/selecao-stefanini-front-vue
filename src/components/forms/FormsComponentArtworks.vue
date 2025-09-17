@@ -1,43 +1,65 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAxiosStore } from '@/stores/axiosStore.ts'
-import type { IArtworkInterface } from '@/interfaces/artworkInterface/IArtworkInterface.ts'
 import CountrysComponent from '@/components/CountrysComponent.vue'
+import type { IPage } from '@/interfaces/IPage.ts'
+import type { IAutorInterface } from '@/interfaces/autorInterface/IAutorInterface.ts'
+import axios from 'axios'
+import MultSelectAutores from '@/components/forms/MultSelectAutores.vue'
 
 const name = ref<string>('')
-const gender = ref<string>('')
-const email = ref<string>('')
-const dateOfBirth = ref<string>('')
-const country = ref<string>('')
-const cpf = ref<string>('')
-const artwork = ref<IArtworkInterface[]>([])
+const description = ref<string>('')
+const publicationDate = ref<string>('')
+const exposureDate = ref<string>('')
+const autores = ref<number[]>([])
 
 const store = useAxiosStore()
 const router = useRouter()
 
-const handlerCreateAutor = async () => {
+const handlerCreateArtwork = async () => {
   try {
-    const res = await store.http.post('/autor', {
+    const res = await store.http.post('/artwork', {
       name: name.value,
-      gender: gender.value,
-      email: email.value,
-      dateOfBirth: dateOfBirth.value,
-      country: country.value,
-      cpf: cpf.value,
-      artwork: artwork.value,
+      description: description.value,
+      publicationDate: publicationDate.value,
+      exposureDate: exposureDate.value,
+      autores: autores.value,
     })
 
+    name.value = ''
+    description.value = ''
+    publicationDate.value = ''
+    exposureDate.value = ''
+    autores.value = []
+
     console.log('created', res.data)
-    await router.push('/autor')
+    await router.push('/artworks')
+    router.go(0)
   } catch (err) {
     console.log(err)
   }
 }
+
+const autor = ref<IPage<IAutorInterface> | null>(null)
+
+const handlerArtworks = async () => {
+  try {
+    const res = await axios.get<IPage<IAutorInterface>>(`http://localhost:8080/autor/all`)
+
+    autor.value = res.data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+onMounted(() => {
+  handlerArtworks()
+})
 </script>
 
 <template>
-  <form @submit.prevent="handlerCreateAutor">
+  <form @submit.prevent="handlerCreateArtwork">
     <div class="grid gap-6 mb-6 md:grid-cols-2">
       <div>
         <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -54,18 +76,7 @@ const handlerCreateAutor = async () => {
       </div>
 
       <div>
-        <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >Select an gender</label
-        >
-        <select
-          v-model="gender"
-          id="countries"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        >
-          <option disabled value="">Choose a gender</option>
-          <option value="MEN">Male</option>
-          <option value="WOMEN">Female</option>
-        </select>
+      <MultSelectAutores/>
       </div>
 
       <div>
@@ -88,11 +99,10 @@ const handlerCreateAutor = async () => {
           </div>
           <input
             v-model="dateOfBirth"
-            datepicker
             id="default-datepicker"
             type="text"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Select date"
+            placeholder=" yyyy-mm-dd"
           />
         </div>
       </div>
@@ -123,7 +133,6 @@ const handlerCreateAutor = async () => {
         id="CPF"
         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         placeholder="000.000.000-00"
-        required
       />
     </div>
 

@@ -59,6 +59,18 @@ import router from '@/router'
             >Home</a>
           </li>
 
+          <li
+            class="my-4 ps-2 lg:my-0 lg:pe-1 lg:ps-2 text-2xl"
+            data-twe-nav-item-ref>
+            <a
+              @click="router.push({name: 'artworks'})"
+              class="text-black dark:text-white lg:px-2"
+              aria-current="page"
+              href="#"
+              data-twe-nav-link-ref
+            >Artwork</a>
+          </li>
+
         </ul>
       </div>
     </div>

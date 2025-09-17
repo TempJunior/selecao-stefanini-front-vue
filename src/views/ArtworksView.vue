@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import FormsComponentAutores from '@/components/forms/FormsComponentAutores.vue'
 import NavbarComponent from '@/components/NavbarComponent.vue'
-import TableListComponentAutores from '@/components/TableListComponentAutores.vue'
+import FormsComponentArtworks from '@/components/forms/FormsComponentArtworks.vue'
 </script>
 
 <template>
@@ -9,24 +8,17 @@ import TableListComponentAutores from '@/components/TableListComponentAutores.vu
     <div>
       <NavbarComponent />
       <div class="flex justify-center mt-4">
-        <h1 class="text-white text-4xl">
-          Cadastro e listagem de Autores
-        </h1>
+        <h1 class="text-white text-4xl">Cadastro e listagem de Artowrks</h1>
       </div>
     </div>
 
     <section class="flex p-8">
-
       <div class="container p-4">
-        <FormsComponentAutores />
+        <FormsComponentArtworks/>
       </div>
 
-      <div class="container p-4">
-        <TableListComponentAutores />
-      </div>
-
+      <div class="container p-4"></div>
     </section>
-
   </main>
 </template>
 
